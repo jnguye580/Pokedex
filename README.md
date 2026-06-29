@@ -23,11 +23,24 @@ go run .
 
 ### Usage
 
-```
-Pokedex > <command>
+```bash
+./pokedex
 ```
 
-Type a command at the prompt and press Enter.
+### Available Commands
+
+| Command   | Description                    |
+|-----------|--------------------------------|
+| `help`    | Displays a help message        |
+| `exit`    | Exit the Pokedex               |
+| `explore` | Explore a location area        |
+| `catch`   | Attempt to catch a Pokemon     |
+| `inspect` | Inspect a caught Pokemon       |
+| `pokedex` | List all caught Pokemon        |
+
+## Requirements
+
+- Go 1.21+
 
 ## Development
 
@@ -40,4 +53,6 @@ go test ./...
 ## Built With
 
 - [Go](https://golang.org/)
-- [PokeAPI](https://pokeapi.co/) *(planned)*
+- [PokeAPI](https://pokeapi.co/)
+
+
