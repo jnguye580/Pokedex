@@ -3,35 +3,60 @@ package main
 import "testing"
 
 func TestCleanInput(t *testing.T) {
-    cases := []struct {
+	cases := []struct {
+		name     string
 		input    string
 		expected []string
 	}{
 		{
+			name:     "leading and trailing spaces",
 			input:    "  hello  world  ",
 			expected: []string{"hello", "world"},
 		},
-		// add more cases here
+		{
+			name:     "empty string",
+			input:    "",
+			expected: []string{},
+		},
+		{
+			name:     "whitespace only",
+			input:    "   ",
+			expected: []string{},
+		},
+		{
+			name:     "uppercase letters are lowercased",
+			input:    "Hello World",
+			expected: []string{"hello", "world"},
+		},
+		{
+			name:     "mixed case with extra spaces",
+			input:    "  PIKACHU   Bulbasaur  ",
+			expected: []string{"pikachu", "bulbasaur"},
+		},
+		{
+			name:     "single word",
+			input:    "charmander",
+			expected: []string{"charmander"},
+		},
+		{
+			name:     "already lowercase",
+			input:    "fire water grass",
+			expected: []string{"fire", "water", "grass"},
+		},
 	}
 
 	for _, c := range cases {
-		actual := cleanInput(c.input)
-		if len(actual) != len(c.expected) {
-			t.Errorf("lengths are not equal")
-			continue
-		}
-		// Check the length of the actual slice against the expected slice
-		// if they don't match, use t.Errorf to print an error message
-		// and fail the test
-		for i := range actual {
-			word := actual[i]
-			expectedWord := c.expected[i]
-			// Check each word in the slice
-			// if they don't match, use t.Errorf to print an error message
-			// and fail the test
-			if word != expectedWord{
-				t.Errorf("Test did not pass, words not the same")
+		t.Run(c.name, func(t *testing.T) {
+			actual := cleanInput(c.input)
+			if len(actual) != len(c.expected) {
+				t.Errorf("got %v, want %v", actual, c.expected)
+				return
 			}
-		}
+			for i := range actual {
+				if actual[i] != c.expected[i] {
+					t.Errorf("word %d: got %q, want %q", i, actual[i], c.expected[i])
+				}
+			}
+		})
 	}
 }
