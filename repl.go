@@ -2,6 +2,7 @@ package main
 
 import (
 	"strings"
+	"github.com/jnguye580/pokedexcli/internal/pokeapi"
 )
 
 func cleanInput(text string) []string{
@@ -13,7 +14,13 @@ func cleanInput(text string) []string{
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*Config) error
+}
+
+type Config struct {
+	pokeapiClient    pokeapi.Client
+    Next     *string
+    Previous *string
 }
 
 func getCommands() map[string]cliCommand {
@@ -28,6 +35,17 @@ func getCommands() map[string]cliCommand {
     		name:        "help",
     		description: "Displays a help message",
     		callback:    commandHelp,
+		},
+
+		"map": {
+			name:        "map",
+			description: "Displays the names of the location areas in the Pokemon world",
+			callback:    commandMap,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Displays the previous location areas in the Pokemon world",
+			callback:    commandMapb,
 		},
 	}
 }
