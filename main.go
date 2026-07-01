@@ -13,7 +13,7 @@ func main() {
     scanner := bufio.NewScanner(os.Stdin)
 	commands := getCommands()
 	cfg := &Config{
-		pokeapiClient: pokeapi.NewClient(5 * time.Second),
+		pokeapiClient: pokeapi.NewClient(5*time.Second, 5*time.Second),
 	}
 
 	for{
