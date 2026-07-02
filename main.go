@@ -22,10 +22,14 @@ func main() {
 		input := scanner.Text()
 
 		cleanedInput := cleanInput(input)
+		if len(cleanedInput) == 0 {
+			continue
+		}
 		firstWord := cleanedInput[0]
+		args := cleanedInput[1:]
 
 		if cmd, ok := commands[firstWord]; ok {
-			if err := cmd.callback(cfg); err != nil {
+			if err := cmd.callback(cfg, args); err != nil {
 				fmt.Println("Error:", err)
 			}
 		} else {
